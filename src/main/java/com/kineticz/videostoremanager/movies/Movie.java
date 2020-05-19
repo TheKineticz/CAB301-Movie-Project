@@ -7,7 +7,7 @@ public class Movie {
     Genre genre;
     Classification classification;
 
-    public Movie(String title, String[] starring, String director, Genre genre, Classification classification){
+    public Movie(String title, String[] starring, String director, Genre genre, Classification classification) {
         this.title = title;
         this.starring = starring;
         this.director = director;

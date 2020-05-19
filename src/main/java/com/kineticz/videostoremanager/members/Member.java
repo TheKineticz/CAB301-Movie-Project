@@ -14,7 +14,7 @@ public class Member {
     String phoneNumber;
     ArrayList<Movie> borrowedMovies;
 
-    public Member(String givenName, String surname, String password, String address, String phoneNumber){
+    public Member(String givenName, String surname, String password, String address, String phoneNumber) {
         this.givenName = givenName;
         this.surname = surname;
         this.username = surname + givenName;

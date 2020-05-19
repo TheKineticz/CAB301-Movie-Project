@@ -1,22 +1,27 @@
 package com.kineticz.videostoremanager.members;
 
-import java.util.UUID;
+import com.kineticz.videostoremanager.movies.Movie;
+
 import java.util.ArrayList;
 
 public class Member {
-    private UUID uuid;
+    String username;
+    String password;
 
-    String name;
+    String givenName;
+    String surname;
     String address;
     String phoneNumber;
-    ArrayList<String> borrowedMovies;
+    ArrayList<Movie> borrowedMovies;
 
-    public Member(String name, String address, String phoneNumber, ArrayList<String> borrowedMovies){
-        uuid = UUID.randomUUID();
+    public Member(String givenName, String surname, String password, String address, String phoneNumber){
+        this.givenName = givenName;
+        this.surname = surname;
+        this.username = surname + givenName;
+        this.password = password; //Plaintext password storage for extra security
 
-        this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.borrowedMovies = borrowedMovies;
+        this.borrowedMovies = new ArrayList<>();
     }
 }

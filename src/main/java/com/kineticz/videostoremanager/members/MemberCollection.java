@@ -1,5 +1,7 @@
 package com.kineticz.videostoremanager.members;
 
+import com.kineticz.videostoremanager.exception.MemberCollectionException;
+
 import java.util.Arrays;
 
 /**

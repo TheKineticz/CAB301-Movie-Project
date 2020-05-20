@@ -1,4 +1,4 @@
-package com.kineticz.videostoremanager.members;
+package com.kineticz.videostoremanager.exception;
 
 /**
  * Error thrown if and attempt is made to add to the member collection once it is full

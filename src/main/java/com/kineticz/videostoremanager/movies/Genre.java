@@ -1,5 +1,8 @@
 package com.kineticz.videostoremanager.movies;
 
+/**
+ * Enum for movie genre types
+ */
 public enum Genre {
     DRAMA("Drama"),
     ADVENTURE("Adventure"),
@@ -17,6 +20,11 @@ public enum Genre {
         this.value = value;
     }
 
+    /**
+     * Overrides the toString function to return the value added in the constructor
+     *
+     * @return The name of the genre in human-readable form
+     */
     @Override
     public String toString(){
         return value;

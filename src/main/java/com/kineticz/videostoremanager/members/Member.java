@@ -35,7 +35,7 @@ public class Member {
         username = surname + givenName;
 
         //Salted SHA-256 password encryption, because science isn't about why. It's about WHY NOT.
-        //Hardly secure in 2020, but let's be honest - it's a library
+        //Hardly secure in 2020, but let's be honest - it's a community library
         passwordSalt = Passwords.generateSalt();
         passwordHash = Passwords.generateHash(Passwords.saltPassword(password, passwordSalt));
     }

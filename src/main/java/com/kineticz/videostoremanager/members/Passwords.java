@@ -11,7 +11,7 @@ import java.security.SecureRandom;
 class Passwords {
 
     private static final SecureRandom RANDOM = new SecureRandom();
-    private static final int MIN_LENGTH = 32;
+    private static final int SALT_LENGTH = 32;
 
     /**
      * Generate a SHA-256 hash from a salted password
@@ -37,7 +37,7 @@ class Passwords {
      * @return The 16 character long string
      */
     public static String generateSalt() {
-        byte[] saltBytes = new byte[32];
+        byte[] saltBytes = new byte[SALT_LENGTH];
         RANDOM.nextBytes(saltBytes);
         return bytesToHex(saltBytes);
     }

@@ -1,8 +1,6 @@
 package com.kineticz.videostoremanager.members;
 
-import com.kineticz.videostoremanager.movies.Movie;
-
-import java.util.ArrayList;
+import com.kineticz.videostoremanager.movies.*;
 
 /**
  * Container for registered members and their information
@@ -15,7 +13,7 @@ public class Member {
     public String surname;
     public String address;
     public String phoneNumber;
-    public ArrayList<Movie> borrowedMovies;
+    public MovieCollection borrowedMovies;
 
     /**
      * Creates a new member object
@@ -34,6 +32,6 @@ public class Member {
 
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.borrowedMovies = new ArrayList<>();
+        this.borrowedMovies = new MovieCollection();
     }
 }

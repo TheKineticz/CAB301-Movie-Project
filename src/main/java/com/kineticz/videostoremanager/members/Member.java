@@ -6,14 +6,15 @@ import com.kineticz.videostoremanager.movies.*;
  * Container for registered members and their information
  */
 public class Member {
-    public String username;
-    public String password;
+    public final String username;
+    private String passwordHash;
+    private String passwordSalt;
 
-    public String givenName;
-    public String surname;
-    public String address;
-    public String phoneNumber;
-    public MovieCollection borrowedMovies;
+    public final String givenName;
+    public final String surname;
+    public final String address;
+    public final String phoneNumber;
+    private MovieCollection borrowedMovies;
 
     /**
      * Creates a new member object
@@ -27,11 +28,25 @@ public class Member {
     public Member(String givenName, String surname, String password, String address, String phoneNumber) {
         this.givenName = givenName;
         this.surname = surname;
-        this.username = surname + givenName;
-        this.password = password; //Plaintext password storage for extra security
-
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.borrowedMovies = new MovieCollection();
+        borrowedMovies = new MovieCollection();
+
+        username = surname + givenName;
+
+        //Salted SHA-256 password encryption, because science isn't about why. It's about WHY NOT.
+        //Hardly secure in 2020, but let's be honest - it's a library
+        passwordSalt = Passwords.generateSalt();
+        passwordHash = Passwords.generateHash(Passwords.saltPassword(password, passwordSalt));
+    }
+
+    /**
+     * Check if an entered password matches the member's stored password information
+     *
+     * @param password The input password
+     * @return Returns true if the password matches, false otherwise
+     */
+    public boolean checkPassword(String password) {
+        return Passwords.checkPassword(password, passwordSalt, passwordHash);
     }
 }

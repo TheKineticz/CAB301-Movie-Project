@@ -35,7 +35,7 @@ public class MemberCollection {
      *
      * @return The members array
      */
-    public Member[] getMembers() {
+    public Member[] get() {
         if (length > 0) {
             return Arrays.copyOfRange(members, 0, length);
         } else {
@@ -64,7 +64,7 @@ public class MemberCollection {
      * @param member The member object of the new member
      * @throws MemberCollectionException Thrown if trying to add a new member when collection is full
      */
-    public void addMember(Member member) throws MemberCollectionException {
+    public void add(Member member) throws MemberCollectionException {
         if (length < MAX_MEMBERS){
             members[length++] = member;
         } else {
@@ -78,7 +78,7 @@ public class MemberCollection {
      * @param username The username of the member to be removed
      * @return Returns true if the member was found and removed, false if not found
      */
-    public boolean removeMember(String username) {
+    public boolean remove(String username) {
         for (int i = 0; i < length; i++) {
             if (members[i].username.equals(username)) {
                 if (i < MAX_MEMBERS - 1) {

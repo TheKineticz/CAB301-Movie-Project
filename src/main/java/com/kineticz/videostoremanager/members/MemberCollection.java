@@ -13,9 +13,9 @@ public class MemberCollection {
     private Member[] members;
     private int length;
 
-    private final String staffUsername = "staff";
-    private final String staffPasswordSalt = "e488b1eca1e1ccf463d5b2af4aed2504e961586f186389e3baf467ad2838e845";
-    private final String staffPasswordHash = "134e24e42d6a3bcbb4b1200b95cdaa8c06b421106f46e03c7c7530728fda54d5";
+    private static final String staffUsername = "staff";
+    private static final String staffPasswordSalt = "e488b1eca1e1ccf463d5b2af4aed2504e961586f186389e3baf467ad2838e845";
+    private static final String staffPasswordHash = "134e24e42d6a3bcbb4b1200b95cdaa8c06b421106f46e03c7c7530728fda54d5";
 
     private static final int MAX_MEMBERS = 10;
     private static final Member[] ZERO_MEMBERS = {};
@@ -148,7 +148,7 @@ public class MemberCollection {
      * @param password The entered staff password
      * @return Returns true if login credentials are correct, false otherwise
      */
-    public boolean checkStaffLogin(String username, String password) {
+    public static boolean checkStaffLogin(String username, String password) {
         return username.equals(staffUsername) && Passwords.checkPassword(password, staffPasswordSalt, staffPasswordHash);
     }
 }

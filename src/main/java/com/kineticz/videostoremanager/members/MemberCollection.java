@@ -61,25 +61,6 @@ public class MemberCollection {
     }
 
     /**
-     * Get a member's phone number given their full name
-     *
-     * @param givenName The member's given name
-     * @param surname The member's surname
-     * @return The member's phone number
-     * @throws MemberCollectionException Thrown if no match for the name is found
-     */
-    public String getPhoneNumber(String givenName, String surname) throws MemberCollectionException {
-        String username = surname + givenName;
-
-        int memberIndex = findMember(username);
-        if (memberIndex != -1) {
-            return members[memberIndex].phoneNumber;
-        } else {
-            throw new MemberCollectionException(String.format("No member found matching name %s %s.", givenName, surname));
-        }
-    }
-
-    /**
      * Add a new member to the collection
      *
      * @param member The member object of the new member
@@ -128,6 +109,25 @@ public class MemberCollection {
         }
 
         return -1;
+    }
+
+    /**
+     * Get a member's phone number given their full name
+     *
+     * @param givenName The member's given name
+     * @param surname The member's surname
+     * @return The member's phone number
+     * @throws MemberCollectionException Thrown if no match for the name is found
+     */
+    public String getPhoneNumber(String givenName, String surname) throws MemberCollectionException {
+        String username = surname + givenName;
+
+        int memberIndex = findMember(username);
+        if (memberIndex != -1) {
+            return members[memberIndex].phoneNumber;
+        } else {
+            throw new MemberCollectionException(String.format("No member found matching name %s %s.", givenName, surname));
+        }
     }
 
     /**

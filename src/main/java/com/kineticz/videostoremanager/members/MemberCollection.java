@@ -141,6 +141,13 @@ public class MemberCollection {
         members = new Member[MAX_MEMBERS];
     }
 
+    /**
+     * Check the staff login details are correct
+     *
+     * @param username The entered staff username
+     * @param password The entered staff password
+     * @return Returns true if login credentials are correct, false otherwise
+     */
     public boolean checkStaffLogin(String username, String password) {
         return username.equals(staffUsername) && Passwords.checkPassword(password, staffPasswordSalt, staffPasswordHash);
     }

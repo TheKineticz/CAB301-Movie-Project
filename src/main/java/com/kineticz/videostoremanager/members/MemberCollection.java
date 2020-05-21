@@ -142,6 +142,6 @@ public class MemberCollection {
     }
 
     public boolean checkStaffLogin(String username, String password) {
-        return username.equals(staffUsername) && Passwords.checkPassword(password, "", staffPassword);
+        return username.equals(staffUsername) && Passwords.checkPassword(password, staffPasswordSalt, staffPasswordHash);
     }
 }

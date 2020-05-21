@@ -234,6 +234,23 @@ public class MovieCollection {
 
         return movies;
     }
+
+    /**
+     * Gets the top 10 most frequently borrowed movies
+     *
+     * @return An array of 10 movies in order of how many times they have been borrowed
+     */
+    public Movie[] getTop10Borrowed() {
+        Movie[] allMovies = toArray();
+        int size = Math.min(allMovies.length, 10);
+
+        MovieSorter.sortByBorrowFrequencyDescending(allMovies);
+
+        Movie[] top10 = new Movie[size];
+        System.arraycopy(allMovies, 0, top10, 0, size);
+
+        return top10;
+    }
 }
 
 /**
@@ -253,5 +270,119 @@ class Node {
         this.movie = movie;
         left = null;
         right = null;
+    }
+}
+
+/**
+ * Interface for a class to quantitatively compare one movie to another
+ */
+interface MovieComparator {
+
+    /**
+     * Compares some value of a movie to another, returning a is smaller, larger or equal to b
+     * @param a The first movie
+     * @param b The second movie
+     * @return Returns -1 if b is greater, 1 if a is greater, or 0 if equal
+     */
+    int compare(Movie a, Movie b);
+}
+
+/**
+ * Comparator class for comparing the amount of times two movies have been borrowed
+ */
+class BorrowFrequencyDescendingComparator implements MovieComparator {
+
+    /**
+     * Compares how many times two movies have been borrowed
+     *
+     * @param a The first movie
+     * @param b The second movie
+     * @return Returns -1 if b is has been borrowed more times, 1 if a has been borrowed more times, or 0 if equal
+     */
+    public int compare(Movie a, Movie b) {
+        return Integer.compare(b.getTimesBorrowed(), a.getTimesBorrowed());
+    }
+}
+
+/**
+ * Container class for the different movie sorting algorithms
+ */
+class MovieSorter {
+
+    /**
+     * Recursive merge sort function for sorting an array of movies
+     *
+     * @param array The array to be sorted
+     * @param low The current minimum index
+     * @param high The current maximum index
+     * @param comparator The comparator object for comparing the movies, passed to merge
+     */
+    private static void mergeSort(Movie[] array, int low, int high, MovieComparator comparator) {
+        if (high <= low) {
+            return;
+        }
+
+        int mid = (low + high) / 2;
+
+        mergeSort(array, low, mid, comparator);
+        mergeSort(array, mid + 1, high, comparator);
+        merge(array, low, mid, high, comparator);
+    }
+
+    /**
+     * Mergesort merge helper method
+     *
+     * @param array The array to be sorted
+     * @param low The current minimum index
+     * @param mid The current middle index
+     * @param high The current maximum index
+     * @param comparator The comparator object for comparing the movies
+     */
+    private static void merge(Movie[] array, int low, int mid, int high, MovieComparator comparator) {
+        int leftLen = mid - low + 1;
+        int rightLen = high - mid;
+
+        Movie[] left = new Movie[leftLen];
+        System.arraycopy(array, low, left, 0, leftLen);
+        Movie[] right = new Movie[rightLen];
+        System.arraycopy(array, mid + 1, right, 0, rightLen);
+
+        int li = 0;
+        int ri = 0;
+
+        //Copy left and right back into the main array
+        for (int i = low; i < high + 1; i++) {
+            //Copy in the minimum value in right and left if there are still uncopied values in both
+            if (li < leftLen && ri < rightLen) {
+                if (comparator.compare(left[li], right[ri]) < 0) {
+                    array[i] = left[li];
+                    li++;
+
+                } else {
+                    array[i] = right[ri];
+                    ri++;
+                }
+
+            //Copy in from left if right is empty
+            } else if (li < leftLen) {
+                array[i] = left[li];
+                li++;
+
+            //Copy in from right if left is empty
+            } else if (ri < rightLen) {
+                array[i] = right[ri];
+                ri++;
+            }
+        }
+    }
+
+    /**
+     * Shorthand function for sorting an array of movies based on how often they have been borrowed
+     *
+     * @param array The array to be sorted
+     */
+    public static void sortByBorrowFrequencyDescending(Movie[] array) {
+        MovieComparator comparator = new BorrowFrequencyDescendingComparator();
+        mergeSort(array, 0, array.length - 1, comparator);
     }
 }

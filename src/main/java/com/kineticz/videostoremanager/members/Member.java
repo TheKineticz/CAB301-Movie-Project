@@ -69,16 +69,9 @@ public class Member {
      * Returns a movie that has been borrowed by a member
      *
      * @param movie The movie that has been returned
-     * @return Returns true if the return succeeded, false if the member does not have the returned movie in their borrowed list
      */
-    public boolean returnMovie(Movie movie) {
-        if (borrowedMovies.containsMovie(movie)) {
-            borrowedMovies.deleteMovie(movie);
-            movie.returnSingle();
-            return true;
-
-        } else {
-            return false;
-        }
+    public void returnMovie(Movie movie) {
+        borrowedMovies.deleteMovie(movie.title);
+        movie.returnSingle();
     }
 }

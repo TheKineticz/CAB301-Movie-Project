@@ -67,38 +67,54 @@ public class MovieCollection {
      * Internal function for searching recursively through nodes to find a movie
      *
      * @param current The current node in the recursion
-     * @param movie The movie to find
+     * @param title The title of the movie to find
      * @return The current node in the recursion
      */
-    private boolean findMovieRecursively(Node current, Movie movie) {
+    private Node findMovieRecursively(Node current, String title) {
         if (current == null) {
-            return false;
+            return null;
         }
 
-        if (current.movie.title.equals(movie.title)) {
-            return true;
+        if (current.movie.title.equals(title)) {
+            return current;
         }
 
-        if (movie.title.compareTo(current.movie.title) < 0) {
-            return findMovieRecursively(current.left, movie);
+        if (title.compareTo(current.movie.title) < 0) {
+            return findMovieRecursively(current.left, title);
 
         } else {
-            return findMovieRecursively(current.right, movie);
+            return findMovieRecursively(current.right, title);
         }
     }
 
     /**
-     * Check to see if the collection contains a movie
+     * Finds a movie object, given the title of that movie
      *
-     * @param movie The movie to search for
-     * @return Returns true if the movie is found, false otherwise
+     * @param title The title of the movie to search for
+     * @return The movie object, or null if no match is found
      */
-    public boolean containsMovie(Movie movie) {
-        return findMovieRecursively(root, movie);
+    public Movie findMovie(String title) {
+        Node movieNode = findMovieRecursively(root, title);
+
+        if (movieNode != null) {
+            return movieNode.movie;
+        } else {
+            return null;
+        }
     }
 
     /**
-     * Traverse the tree from a given root node to the minimum value from that root node, and return it's movie
+     * Shorthand function to check if the collection contains a given movie
+     *
+     * @param title The title of the movie to search for
+     * @return Returns true if the movie is found, false otherwise
+     */
+    public boolean containsMovie(String title) {
+        return findMovie(title) != null;
+    }
+
+    /**
+     * Traverse a tree from a given root node to the minimum value from that root node, and return it's movie
      *
      * @param root The root node
      * @return The movie at the minimal node
@@ -115,15 +131,15 @@ public class MovieCollection {
      * Internal function for deleting a node recursively
      *
      * @param current The current node in the recursion
-     * @param movie The movie to be deleted
+     * @param title The title of the movie to be deleted
      * @return The current node in the recursion
      */
-    private Node deleteMovieRecursively(Node current, Movie movie) {
+    private Node deleteMovieRecursively(Node current, String title) {
         if (current == null) {
             return null;
         }
 
-        if (movie.title.equals(current.movie.title)) {
+        if (title.equals(current.movie.title)) {
             //Case where the node has no children
             if (current.left == null && current.right == null) {
                 return null;
@@ -141,16 +157,16 @@ public class MovieCollection {
                 Movie replacement = getSubtreeMinimum(current.right);
 
                 current.movie = replacement;
-                current.right = deleteMovieRecursively(current.right, replacement);
+                current.right = deleteMovieRecursively(current.right, replacement.title);
 
                 return current;
             }
         }
 
-        if (movie.title.compareTo(current.movie.title) < 0) {
-            current.left = deleteMovieRecursively(current.left, movie);
+        if (title.compareTo(current.movie.title) < 0) {
+            current.left = deleteMovieRecursively(current.left, title);
         } else {
-            current.right = deleteMovieRecursively(current.right, movie);
+            current.right = deleteMovieRecursively(current.right, title);
         }
 
         return current;
@@ -159,10 +175,10 @@ public class MovieCollection {
     /**
      * Deletes a movie from the tree
      *
-     * @param movie The movie to be deleted
+     * @param title The title of the movie to be deleted
      */
-    public void deleteMovie(Movie movie) {
-        root = deleteMovieRecursively(root, movie);
+    public void deleteMovie(String title) {
+        root = deleteMovieRecursively(root, title);
     }
 }
 

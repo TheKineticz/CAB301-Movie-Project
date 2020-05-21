@@ -28,7 +28,7 @@ public class MovieCollection {
     }
 
     /**
-     * Internal function for recursively adding nodes
+     * Internal function for traversing recursively to add a node
      *
      * @param current The current node in the recursion
      * @param movie The movie object to be added to the tree
@@ -55,7 +55,7 @@ public class MovieCollection {
     }
 
     /**
-     * External function for adding a new movie
+     * Adds a new movie
      *
      * @param movie The movie to be added
      */
@@ -64,7 +64,7 @@ public class MovieCollection {
     }
 
     /**
-     * Internal function for searching recursively through nodes to find a movie
+     * Internal function for traversing recursively through nodes to find a movie
      *
      * @param current The current node in the recursion
      * @param title The title of the movie to find
@@ -128,7 +128,7 @@ public class MovieCollection {
     }
 
     /**
-     * Internal function for deleting a node recursively
+     * Internal function for traversing the tree to delete a node
      *
      * @param current The current node in the recursion
      * @param title The title of the movie to be deleted
@@ -179,6 +179,60 @@ public class MovieCollection {
      */
     public void deleteMovie(String title) {
         root = deleteMovieRecursively(root, title);
+    }
+
+    /**
+     * Internal function for traversing recursively to find the size of the tree
+     *
+     * @param node The current node in the recursion
+     * @return The current sum of the size
+     */
+    private int getSizeRecursively(Node node) {
+        if (node == null) {
+            return 0;
+        } else {
+            return 1 + getSizeRecursively(node.left) + getSizeRecursively(node.right);
+        }
+    }
+
+    /**
+     * Gets the size of the tree
+     *
+     * @return The size of the tree
+     */
+    public int getSize() {
+        return getSizeRecursively(root);
+    }
+
+    /**
+     * Internal recursive function for traversing the tree in-order and populating an array with the tree values
+     *
+     * @param current The current node in the recursion
+     * @param array The array object being populated
+     * @param i The current index of the array value to be populated
+     */
+    private int populateArray_InOrder(Node current, Movie[] array, int i) {
+        if (current == null) {
+            return i;
+        }
+
+        i = populateArray_InOrder(current.left, array, i);
+        array[i++] = current.movie;
+        i = populateArray_InOrder(current.right, array, i);
+
+        return i;
+    }
+
+    /**
+     * Convert the tree to an array using in-order traversal
+     *
+     * @return The tree in array form
+     */
+    public Movie[] toArray() {
+        Movie[] movies = new Movie[getSize()];
+        populateArray_InOrder(root, movies, 0);
+
+        return movies;
     }
 }
 

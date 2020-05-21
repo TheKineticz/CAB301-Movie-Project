@@ -297,7 +297,7 @@ class BorrowFrequencyDescendingComparator implements MovieComparator {
      *
      * @param a The first movie
      * @param b The second movie
-     * @return Returns -1 if b is has been borrowed more times, 1 if a has been borrowed more times, or 0 if equal
+     * @return Returns -1 if a is has been borrowed more times, 1 if b has been borrowed more times, or 0 if equal
      */
     public int compare(Movie a, Movie b) {
         return Integer.compare(b.getTimesBorrowed(), a.getTimesBorrowed());
@@ -305,7 +305,7 @@ class BorrowFrequencyDescendingComparator implements MovieComparator {
 }
 
 /**
- * Container class for the different movie sorting algorithms
+ * Container class for the different movie sorting functions
  */
 class MovieSorter {
 

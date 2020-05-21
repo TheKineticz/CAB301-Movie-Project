@@ -14,7 +14,7 @@ public class MemberCollection {
     private int length;
 
     private static final int MAX_MEMBERS = 10;
-    private static final Member[] NO_MEMBERS = {};
+    private static final Member[] ZERO_MEMBERS = {};
 
     /**
      * Create a new empty member collection
@@ -41,7 +41,7 @@ public class MemberCollection {
         if (length > 0) {
             return Arrays.copyOfRange(members, 0, length);
         } else {
-            return NO_MEMBERS;
+            return ZERO_MEMBERS;
         }
     }
 
@@ -71,7 +71,7 @@ public class MemberCollection {
     public String getPhoneNumber(String givenName, String surname) throws MemberCollectionException {
         String username = surname + givenName;
 
-        int memberIndex = find(username);
+        int memberIndex = findMember(username);
         if (memberIndex != -1) {
             return members[memberIndex].phoneNumber;
         } else {
@@ -85,7 +85,7 @@ public class MemberCollection {
      * @param member The member object of the new member
      * @throws MemberCollectionException Thrown if trying to add a new member when collection is full
      */
-    public void add(Member member) throws MemberCollectionException {
+    public void addMember(Member member) throws MemberCollectionException {
         if (length < MAX_MEMBERS){
             members[length++] = member;
         } else {
@@ -99,7 +99,7 @@ public class MemberCollection {
      * @param username The username of the member to be removed
      * @return Returns true if the member was found and removed, false if not found
      */
-    public boolean remove(String username) {
+    public boolean removeMember(String username) {
         for (int i = 0; i < length; i++) {
             if (members[i].username.equals(username)) {
                 if (i < MAX_MEMBERS - 1) {
@@ -120,7 +120,7 @@ public class MemberCollection {
      * @param username The username of the member to search for
      * @return Returns the index of the member if found, -1 if the member is not found
      */
-    public int find(String username) {
+    public int findMember(String username) {
         for (int i = 0; i < length; i++) {
             if (members[i].username.equals(username)) {
                 return i;

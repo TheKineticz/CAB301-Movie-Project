@@ -7,14 +7,14 @@ import com.kineticz.videostoremanager.movies.*;
  */
 public class Member {
     public final String username;
-    private String passwordHash;
-    private String passwordSalt;
+    private final String passwordHash;
+    private final String passwordSalt;
 
     public final String givenName;
     public final String surname;
     public final String address;
     public final String phoneNumber;
-    private MovieCollection borrowedMovies;
+    private final MovieCollection borrowedMovies;
 
     /**
      * Creates a new member object
@@ -48,5 +48,37 @@ public class Member {
      */
     public boolean checkPassword(String password) {
         return Passwords.checkPassword(password, passwordSalt, passwordHash);
+    }
+
+    /**
+     * Borrows a movie and adds it to the member's borrowed movies list
+     *
+     * @param movie The movie to be borrowed
+     * @return Returns true if the movie has been successfully borrowed, false if it cannot be borrowed
+     */
+    public boolean borrowMovie(Movie movie) {
+        if (movie.borrowSingle()) {
+            borrowedMovies.addMovie(movie);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns a movie that has been borrowed by a member
+     *
+     * @param movie The movie that has been returned
+     * @return Returns true if the return succeeded, false if the member does not have the returned movie in their borrowed list
+     */
+    public boolean returnMovie(Movie movie) {
+        if (borrowedMovies.containsMovie(movie)) {
+            borrowedMovies.deleteMovie(movie);
+            movie.returnSingle();
+            return true;
+
+        } else {
+            return false;
+        }
     }
 }

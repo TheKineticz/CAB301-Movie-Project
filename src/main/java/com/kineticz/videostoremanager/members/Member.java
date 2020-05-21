@@ -74,4 +74,13 @@ public class Member {
         borrowedMovies.deleteMovie(movie.title);
         movie.returnSingle();
     }
+
+    /**
+     * Get the currently borrowed movies
+     *
+     * @return The currently borrowed movies
+     */
+    public MovieCollection getBorrowedMovies() {
+        return borrowedMovies;
+    }
 }

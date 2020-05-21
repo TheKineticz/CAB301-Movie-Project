@@ -95,4 +95,13 @@ public class Movie {
     public void returnSingle() {
         stock++;
     }
+
+    /**
+     * Get the amount of times the movie has been borrowed
+     *
+     * @return The amount of times the movie has been borrowed
+     */
+    public int getTimesBorrowed() {
+        return timesBorrowed;
+    }
 }

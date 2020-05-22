@@ -29,4 +29,20 @@ public enum Genre {
     public String toString(){
         return value;
     }
+
+    /**
+     * Return an enum value from a string
+     *
+     * @param input The input string value
+     * @return The corresponding enum value
+     */
+    public static Genre getFromString(String input) {
+        for (Genre genre : Genre.values()) {
+            if (input.equals(genre.toString())) {
+                return genre;
+            }
+        }
+
+        throw new IllegalArgumentException();
+    }
 }

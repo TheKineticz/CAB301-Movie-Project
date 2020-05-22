@@ -24,4 +24,20 @@ public enum Classification {
     public String toString(){
         return value;
     }
+
+    /**
+     * Return an enum value from a string
+     *
+     * @param input The input string value
+     * @return The corresponding enum value
+     */
+    public static Classification getFromString(String input) {
+        for (Classification classification : Classification.values()) {
+            if (input.equals(classification.toString())) {
+                return classification;
+            }
+        }
+
+        throw new IllegalArgumentException();
+    }
 }

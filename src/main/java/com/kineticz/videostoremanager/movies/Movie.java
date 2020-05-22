@@ -79,21 +79,26 @@ public class Movie {
      * @return Returns true if the transaction was successful, false if there is not enough stock to complete the transaction
      */
     public boolean borrowSingle() {
-        if (stock > 0) {
-            stock--;
+        try {
+            removeStock(1);
             timesBorrowed++;
-
             return true;
-        } else {
+
+        } catch (MovieStockException e) {
             return false;
         }
     }
 
     /**
-     * Shorthand function for adding a single movie disc to the stock
+     * Shorthand function for returning a single movie disc to the stock
      */
     public void returnSingle() {
-        stock++;
+        try {
+            addStock(1);
+        } catch (MovieStockException e) {
+            System.out.println("Pack up and move to a new universe. It should be impossible to see this message as long as the laws of physics stay true.");
+        }
+
     }
 
     /**
@@ -103,5 +108,33 @@ public class Movie {
      */
     public int getTimesBorrowed() {
         return timesBorrowed;
+    }
+
+    public String toStringVerbose() {
+        StringBuilder str = new StringBuilder();
+
+        str.append(title).append("\n");
+
+        str.append("Starring: ").append(starring[0]);
+        for (int i = 1; i < starring.length; i++) {
+            str.append(", ").append(starring[i]);
+        }
+        str.append("\n");
+
+        str.append("Director: ").append(director).append("\n");
+        str.append("Genre: ").append(genre.toString()).append("\n");
+        str.append("Classification: ").append(classification.toString()).append("\n\n");
+
+        return str.toString();
+    }
+
+    /**
+     * Get the title of the movie as the string form of the movie
+     *
+     * @return The title of the movie
+     */
+    @Override
+    public String toString() {
+        return title;
     }
 }

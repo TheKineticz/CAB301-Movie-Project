@@ -242,14 +242,15 @@ public class MovieCollection {
      */
     public Movie[] getTop10Borrowed() {
         Movie[] allMovies = toArray();
-        int size = Math.min(allMovies.length, 10);
-
         MovieSorter.sortByBorrowFrequencyDescending(allMovies);
 
-        Movie[] top10 = new Movie[size];
-        System.arraycopy(allMovies, 0, top10, 0, size);
-
-        return top10;
+        if (allMovies.length > 10) {
+            Movie[] top10 = new Movie[10];
+            System.arraycopy(allMovies, 0, top10, 0, 10);
+            return top10;
+        } else {
+            return allMovies;
+        }
     }
 }
 

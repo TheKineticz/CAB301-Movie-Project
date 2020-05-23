@@ -29,11 +29,20 @@ public class StaffMenu {
             int selection = Validator.getValidSelection(NUM_CHOICES);
 
             switch (selection) {
-                case 1 -> addMovie();
-                case 2 -> removeMovie();
-                case 3 -> registerMember();
-                case 4 -> findMemberPhone();
-                case 0 -> { return; }
+                case 1:
+                    addMovie();
+                    break;
+                case 2:
+                    removeMovie();
+                    break;
+                case 3:
+                    registerMember();
+                    break;
+                case 4:
+                    findMemberPhone();
+                    break;
+                case 0:
+                    return;
             }
         }
     }

@@ -28,15 +28,24 @@ public class MemberMenu {
             int selection = Validator.getValidSelection(NUM_CHOICES);
 
             switch (selection) {
-                case 1 -> displayMovies();
-                case 2 -> borrowMovie();
-                case 3 -> returnMovie();
-                case 4 -> listBorrowedMovies();
-                case 5 -> listTop10Movies();
-                case 0 -> {
+                case 1:
+                    displayMovies();
+                    break;
+                case 2:
+                    borrowMovie();
+                    break;
+                case 3:
+                    returnMovie();
+                    break;
+                case 4:
+                    listBorrowedMovies();
+                    break;
+                case 5:
+                    listTop10Movies();
+                    break;
+                case 0:
                     VideoStoreManager.logOut();
                     return;
-                }
             }
         }
     }

@@ -67,12 +67,16 @@ public class MemberMenu {
 
         Movie movie = VideoStoreManager.movieCollection.findMovie(title);
         if (movie != null) {
-            if (VideoStoreManager.getLoggedInMember().borrowMovie(movie)) {
-                System.out.printf("Successfully borrowed %s!\n", title);
+            if (VideoStoreManager.getLoggedInMember().getBorrowedMovies().findMovie(title) == null) {
+                if (VideoStoreManager.getLoggedInMember().borrowMovie(movie)) {
+                    System.out.printf("Successfully borrowed %s!\n", title);
+                } else {
+                    System.out.printf("%s is not currently in stock.\n", title);
+                }
             } else {
-                System.out.printf("%s is not currently in stock.\n", title);
+                System.out.printf("You have already borrowed %s!\n", title);
             }
-
+            
         } else {
             System.out.printf("Movie \"%s\" does not exist.\n", title);
         }
